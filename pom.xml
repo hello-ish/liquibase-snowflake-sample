@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>liquibase-snowflake-sample</groupId>
+  <artifactId>liquibase-snowflake-test</artifactId>
+  <version>2.0.0</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <liquibase.core.version>3.8.5</liquibase.core.version>
+    <liquibase.snowflake.version>2.0.0</liquibase.snowflake.version>
+    <snowflake.jdbc.version>3.12.0</snowflake.jdbc.version>
+  </properties>
+
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/net.snowflake/snowflake-jdbc -->
+    <dependency>
+      <groupId>net.snowflake</groupId>
+      <artifactId>snowflake-jdbc</artifactId>
+      <version>${snowflake.jdbc.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <name>Liquibase Snowflake Database Test Sample</name>
+  <description>Liquibase Snowflake Database Test Sample</description>
+  <build>
+    <directory>${project.basedir}/target</directory>
+    <plugins>
+
+      <!-- Liquibase -->
+
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>${liquibase.core.version}</version>
+        <configuration>
+          <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+          <driver>net.snowflake.client.jdbc.SnowflakeDriver</driver>
+          <url>jdbc:snowflake://${env.SNOWFLAKE_ACCOUNT}.snowflakecomputing.com/</url>
+          <username>${env.SNOWFLAKE_USERNAME}</username>
+          <password>${env.SNOWFLAKE_PASSWORD}</password>
+        </configuration>
+        
+        <!-- dependencies -->
+        <dependencies>
+          <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-snowflake</artifactId>
+            <version>${liquibase.snowflake.version}</version>
+          </dependency>
+        </dependencies>
+
+        <executions>
+          <execution>
+            <id>ddl1</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>update</goal>
+            </goals>
+            <configuration>
+              <changeLogFile>dbchangelog.xml</changeLogFile>
+              <url>jdbc:snowflake://${env.SNOWFLAKE_ACCOUNT}.snowflakecomputing.com/?db=${env.SNOWFLAKE_DB}&amp;schema=${env.SNOWFLAKE_SCHEMA}&amp;role=${env.SNOWFLAKE_ROLE}&amp;warehouse=${env.SNOWFLAKE_WH}</url>
+            </configuration>
+          </execution>
+<!-- You can either use single or multiple executions as below by creating another dbchangelog2.xml-->
+          <execution>
+            <id>ddl2</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>update</goal>
+            </goals>
+            <configuration>
+              <changeLogFile>dbchangelog2.xml</changeLogFile>
+              <url>jdbc:snowflake://${env.SNOWFLAKE_ACCOUNT}.snowflakecomputing.com/?db=${env.SNOWFLAKE_DB}&amp;warehouse=${env.SNOWFLAKE_WH}&amp;schema=${env.SNOWFLAKE_SCHEMA_SAMPLE}&amp;role=${env.SNOWFLAKE_ROLE}</url>
+            </configuration>
+          </execution>
+        </executions>
+
+      </plugin>
+    </plugins>
+
+  </build>
+
+</project>

@@ -1,0 +1,28 @@
+# This is how a CICD pipeline would look like
+# Also you would need (image) maven:3.6.2-jdk-8 can be found from https://hub.docker.com/_/maven
+
+pipeline:
+  maven-liquibasename:
+    image: maven:3.6.2-jdk-8
+    environment:
+      - SNOWFLAKE_ACCOUNT=########
+      - SNOWFLAKE_SCHEMA=########
+      - SNOWFLAKE_SCHEMA_SAMPLE=########
+      - SNOWFLAKE_ENV=########
+      - SNOWFLAKE_SI=########
+      - SNOWFLAKE_DB=########
+      - SNOWFLAKE_WH=########
+      - SNOWFLAKE_USERNAME=########
+      - SNOWFLAKE_ROLE=########
+      # this secrects are defined at drone io.
+    secrets:
+      - source: ########
+        target: ########
+    commands:
+        - mvn install --settings settings.xml
+    when:
+      event:
+        - push 
+      branch:
+        - master
+      

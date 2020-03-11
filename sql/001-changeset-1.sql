@@ -1,0 +1,6 @@
+-- CREATE TABLE "Test-Customer"(
+--     LastName varchar(255),
+--     FirstName varchar(255),
+--     County varchar(255),
+--     City varchar(255)
+-- );
