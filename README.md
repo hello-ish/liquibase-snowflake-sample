@@ -66,10 +66,15 @@ Update
 
 
 References:
+
 https://github.com/bruce-szalwinski/liquibase-snowflake
+
 https://github.com/bruce-szalwinski/liquibase-snowflake-sample
+
 https://dzone.com/articles/introduction-to-liquibase-and-managing-your-databa
+
 https://www.smaato.com/blog/how-to-execute-database-migrations-with-liquibase/
+
 https://hub.docker.com/_/maven
 
 
