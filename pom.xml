@@ -10,7 +10,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <liquibase.core.version>3.8.5</liquibase.core.version>
     <liquibase.snowflake.version>2.0.0</liquibase.snowflake.version>
-    <snowflake.jdbc.version>3.12.0</snowflake.jdbc.version>
+    <snowflake.jdbc.version>3.13.29</snowflake.jdbc.version>
   </properties>
 
   <dependencies>
